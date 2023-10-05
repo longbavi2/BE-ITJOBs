@@ -1,7 +1,6 @@
 const randomToken = require("../services/randomToken")
 const aqp = require("api-query-params")
 const User = require("../models/user")
-const { uploadSingleFileApi, uploadSingleToMultipleFileApi } = require('../services/uploadFileServices')
 const { postCreateUserService, getUserByFilterService } = require("../services/userService")
 const getUserApi = async (req, res) => {
     let result = await getUserByFilterService(req.query)

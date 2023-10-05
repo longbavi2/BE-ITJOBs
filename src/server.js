@@ -19,7 +19,7 @@ app.use(cors())
 app.use(fileUpload());
 
 
-app.use('/', webRoutes)
+// app.use('/', webRoutes)
 app.use('/v1/api', apiRoutes)
 
 
