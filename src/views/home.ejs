@@ -1,0 +1,73 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageHome</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/create">Create New user</a>
+    </div>
+    <table title="List Users">
+        <h2>
+            List Users
+        </h2>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>Action</th>
+        </tr>
+        <% for (var i = 0; i < listUsers.length; i++) { %>
+        <tr>
+            <td><%=listUsers[i].id %></td>
+            <td><%=listUsers[i].email %></td>
+            <td><%=listUsers[i].name %></td>
+            <td><%=listUsers[i].city %></td>
+            <td class="flex">
+                <button class="flex_item">
+                    <a href="/update/<%=listUsers[i].id %>">
+                        Edit
+                    </a>
+                </button>
+                <form action="/delete-user/<%=listUsers[i].id %>" method="post">
+                    <button class="flex_item">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+    <!-- <div class="box">
+        <form action="/create-user" method="post" class="form">
+            <label for="">Add New Users</label>
+            <div class="email box_item" id="email">
+                <label for="email">
+                    Email:
+                </label>
+                <input type="text" name="email">
+            </div>
+            <div class="name box_item" id="name">
+                <label for="name">
+                    Name:
+                </label>
+                <input type="text" name="name">
+            </div>
+            <div class="city box_item" id="city">
+                <label for="city">
+                    City:
+                </label>
+                <input type="text" name="city">
+            </div>
+            <button>Save</button>
+        </form>
+    </div> -->
+</body>
+
+</html>
