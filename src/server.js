@@ -1,6 +1,5 @@
 const express = require('express')
 const conFigViewEngine = require('./config/ViewEngine')
-const webRoutes = require('./routes/web')
 const apiRoutes = require('./routes/api')
 const fileUpload = require('express-fileupload');
 const app = express()

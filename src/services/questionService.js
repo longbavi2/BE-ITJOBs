@@ -1,5 +1,5 @@
 const aqp = require("api-query-params")
-const Question = require("../models/Question")
+const Question = require("../models/question")
 const getQuestionService = async (req) => {
     try {
         const { filter } = aqp(req.query);
