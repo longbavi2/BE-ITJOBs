@@ -1,39 +1,50 @@
 const randomToken = require("../services/randomToken")
 const aqp = require("api-query-params")
 const User = require("../models/user")
-const { postCreateUserService, getUserByFilterService } = require("../services/userService")
+const { postCreateUserService, findUserService, putUpdateUserService, deleteUserService } = require("../services/userService")
 
-const getUserApi = async (req, res) => {
-    let result = await getUserByFilterService(req.query)
+const postUserLoginAPI = async (req, res) => {
+    const { email, password } = req.body
+    let result = await findUserService(email, password)
+    if (result) {
+        return res.status(200).json({
+            errorCode: 0,
+            data: result
+        })
+    } else {
+        return res.status(400).json("Email or Password is not Valid")
+    }
+
+}
+const postUserRegisterAPI = async (req, res) => {
+    const { name, email, city, password } = req.body
+    let result = await postCreateUserService(name, email, city, password)
+    if (result) {
+        return res.status(201).json({
+            errorCode: 0,
+            data: result
+        })
+    } else {
+        return res.status(400).json("Email is used")
+    }
+}
+const putUpdateUserAPI = async (req, res) => {
+    const result = await putUpdateUserService(req.body)
+    if (result) {
+        return res.status(200).json({
+            errorCode: 0,
+            data: result
+        })
+    } else {
+        return res.status(400).json("Update Failed")
+    }
+
+}
+const deleteUserAPI = async (req, res) => {
+    const result = await deleteUserService(req.body)
     return res.status(200).json({
         errorCode: 0,
         data: result
-    })
-}
-const postUserApi = async (req, res) => {
-    let result = await postCreateUserService(req.body)
-    return res.status(201).json({
-        errorCode: 0,
-        data: result
-    })
-}
-const putUpdateUserApi = async (req, res) => {
-    let userId = req.body.userId
-    let email = req.body.email
-    let name = req.body.name
-    let city = req.body.city
-    let user = await User.updateOne({ _id: userId }, { email: email, name: name, city: city });
-    return res.status(200).json({
-        errorCode: 0,
-        data: user
-    })
-}
-const deleteUserApi = async (req, res) => {
-    const id = req.body.userId
-    let user = await User.deleteOne({ _id: id })
-    return res.status(200).json({
-        errorCode: 0,
-        data: user
     })
 }
 const postUploadFileApi = async (req, res) => {
@@ -62,4 +73,4 @@ const postUploadFileApi = async (req, res) => {
         })
     }
 }
-module.exports = { getUserApi, postUserApi, putUpdateUserApi, deleteUserApi, postUploadFileApi }
+module.exports = { postUserLoginAPI, postUserRegisterAPI, putUpdateUserAPI, deleteUserAPI }

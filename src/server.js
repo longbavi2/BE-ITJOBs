@@ -8,19 +8,19 @@ require('dotenv').config()
 const port = process.env.PORT || 8080
 const hostname = process.env.HOST_NAME
 const cors = require("cors")
+const cookieParser = require("cookie-parser")
 //Config template engine
 conFigViewEngine(app);
 //config form data 
 app.use(express.json()) // middleware 
 app.use(express.urlencoded({ extended: true })) // for form data
+app.use(cookieParser())
 app.use(cors())
 //config file upload
 app.use(fileUpload());
+//config file upload
 
-
-// app.use('/', webRoutes)
 app.use('/v1/api', apiRoutes)
-
 
 //database
 // connection();
